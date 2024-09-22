@@ -1,10 +1,9 @@
 
-import asyncio, json
-from os import getenv
+import asyncio,os, json
 import nest_asyncio
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, filters, ContextTypes
-from school_time import schedule, calendar, rtu, create_and_return_for_bot
+from api.school_time import schedule, calendar, rtu, create_and_return_for_bot
 
 
 inline_keyboard_buttons = {
@@ -24,7 +23,7 @@ inline_keyboard_buttons = {
 nest_asyncio.apply()
 
 # Токен вашего бота
-TOKEN = getenv("TOKEN")
+TOKEN = os.environ.get('TOKEN')
 bot_username = "@schedule_rtu_bot"
 directory_path = os.path.dirname(os.path.abspath(__file__))
 database:dict
@@ -355,5 +354,5 @@ async def error(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print(error_value)
 
 
-if __name__ == "__main__":
-    asyncio.run(main())
+
+asyncio.run(main())
